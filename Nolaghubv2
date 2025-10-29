@@ -1,9 +1,9 @@
---// Custom Loading Screen + Auto Execute Script After Load
--- ทำงานบน Delta, Fluxus, Arceus X ได้
+--// Custom Loading Screen + Logo + Auto Execute Script
+-- ใช้งานได้ใน Delta / Fluxus / Arceus X
 
 local player = game.Players.LocalPlayer
 local gui = Instance.new("ScreenGui")
-gui.Name = "DeltaLoadingScreen"
+gui.Name = "XbhvLoadingScreen"
 gui.ResetOnSpawn = false
 gui.Parent = player:WaitForChild("PlayerGui")
 
@@ -14,63 +14,16 @@ bg.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 bg.BackgroundTransparency = 0.2
 bg.Parent = gui
 
+-- ✅ โลโก้มุมซ้ายบน
+local logo = Instance.new("ImageLabel")
+logo.Size = UDim2.new(0, 120, 0, 120)
+logo.Position = UDim2.new(0.02, 0, 0.02, 0)
+logo.BackgroundTransparency = 1
+logo.Image = "rbxassetid://99886075120523" -- ✅ โลโก้ของคุณ
+logo.Parent = bg
+
 -- ข้อความหลัก
 local title = Instance.new("TextLabel")
 title.Size = UDim2.new(1, 0, 0, 50)
 title.Position = UDim2.new(0, 0, 0.35, 0)
-title.BackgroundTransparency = 1
-title.Text = "Youtube: MakuScripts"
-title.TextColor3 = Color3.fromRGB(255, 255, 255)
-title.Font = Enum.Font.GothamBold
-title.TextScaled = true
-title.Parent = bg
-
--- ข้อความรอง
-local sub = Instance.new("TextLabel")
-sub.Size = UDim2.new(1, 0, 0, 30)
-sub.Position = UDim2.new(0, 0, 0.42, 0)
-sub.BackgroundTransparency = 1
-sub.Text = "Subscribe To MakuScripts"
-sub.TextColor3 = Color3.fromRGB(200, 200, 200)
-sub.Font = Enum.Font.Gotham
-sub.TextScaled = true
-sub.Parent = bg
-
--- ฟีเจอร์
-local feat = Instance.new("TextLabel")
-feat.Size = UDim2.new(1, 0, 0, 30)
-feat.Position = UDim2.new(0, 0, 0.47, 0)
-feat.BackgroundTransparency = 1
-feat.Text = "Instant Steal | Bypass SAB"
-feat.TextColor3 = Color3.fromRGB(255, 100, 150)
-feat.Font = Enum.Font.GothamBold
-feat.TextScaled = true
-feat.Parent = bg
-
--- Progress Bar
-local barBg = Instance.new("Frame")
-barBg.Size = UDim2.new(0.6, 0, 0.03, 0)
-barBg.Position = UDim2.new(0.2, 0, 0.6, 0)
-barBg.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
-barBg.BorderSizePixel = 0
-barBg.Parent = bg
-
-local fill = Instance.new("Frame")
-fill.Size = UDim2.new(0, 0, 1, 0)
-fill.BackgroundColor3 = Color3.fromRGB(170, 0, 255)
-fill.BorderSizePixel = 0
-fill.Parent = barBg
-
--- แถบโหลดเคลื่อนไหว
-for i = 0, 1, 0.02 do
-	fill.Size = UDim2.new(i, 0, 1, 0)
-	wait(0.03)
-end
-
-wait(0.5)
-gui:Destroy()
-
--- ✅ หลังโหลดเสร็จ: รันสคริปต์จาก URL
-pcall(function()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/kaisudlnw/Sss/refs/heads/main/Ssss"))()
-end)
+title.Bac
