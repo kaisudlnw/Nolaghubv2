@@ -1,29 +1,128 @@
---// Custom Loading Screen + Logo + Auto Execute Script
--- ใช้งานได้ใน Delta / Fluxus / Arceus X
+--// Modern Loading Screen | XbhvScript
+-- รองรับ Delta / Fluxus / Arceus X
 
 local player = game.Players.LocalPlayer
 local gui = Instance.new("ScreenGui")
 gui.Name = "XbhvLoadingScreen"
+gui.IgnoreGuiInset = true
 gui.ResetOnSpawn = false
 gui.Parent = player:WaitForChild("PlayerGui")
 
--- พื้นหลัง
+-- พื้นหลังแบบ gradient
 local bg = Instance.new("Frame")
 bg.Size = UDim2.new(1, 0, 1, 0)
-bg.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-bg.BackgroundTransparency = 0.2
+bg.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+bg.BorderSizePixel = 0
 bg.Parent = gui
 
--- ✅ โลโก้มุมซ้ายบน
+local gradient = Instance.new("UIGradient")
+gradient.Color = ColorSequence.new{
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(50, 0, 100)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(20, 20, 20))
+}
+gradient.Rotation = 45
+gradient.Parent = bg
+
+-- โลโก้มุมซ้ายบน
 local logo = Instance.new("ImageLabel")
 logo.Size = UDim2.new(0, 120, 0, 120)
-logo.Position = UDim2.new(0.02, 0, 0.02, 0)
+logo.Position = UDim2.new(0.03, 0, 0.03, 0)
 logo.BackgroundTransparency = 1
-logo.Image = "rbxassetid://99886075120523" -- ✅ โลโก้ของคุณ
+logo.Image = "rbxassetid://99886075120523" -- โลโก้ของคุณ
+logo.ImageTransparency = 0.05
 logo.Parent = bg
 
--- ข้อความหลัก
+-- ข้อความหลัก (ชื่อช่อง)
 local title = Instance.new("TextLabel")
-title.Size = UDim2.new(1, 0, 0, 50)
-title.Position = UDim2.new(0, 0, 0.35, 0)
-title.Bac
+title.AnchorPoint = Vector2.new(0.5, 0.5)
+title.Position = UDim2.new(0.5, 0, 0.4, 0)
+title.Size = UDim2.new(0.8, 0, 0.1, 0)
+title.BackgroundTransparency = 1
+title.Text = "Youtube: XbhvScript"
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.Font = Enum.Font.GothamBold
+title.TextScaled = true
+title.TextStrokeTransparency = 0.6
+title.Parent = bg
+
+-- ข้อความรอง
+local sub = Instance.new("TextLabel")
+sub.AnchorPoint = Vector2.new(0.5, 0.5)
+sub.Position = UDim2.new(0.5, 0, 0.47, 0)
+sub.Size = UDim2.new(0.7, 0, 0.06, 0)
+sub.BackgroundTransparency = 1
+sub.Text = "Subscribe To XbhvScript"
+sub.TextColor3 = Color3.fromRGB(200, 200, 200)
+sub.Font = Enum.Font.Gotham
+sub.TextScaled = true
+sub.TextStrokeTransparency = 0.8
+sub.Parent = bg
+
+-- ฟีเจอร์
+local feat = Instance.new("TextLabel")
+feat.AnchorPoint = Vector2.new(0.5, 0.5)
+feat.Position = UDim2.new(0.5, 0, 0.53, 0)
+feat.Size = UDim2.new(0.7, 0, 0.06, 0)
+feat.BackgroundTransparency = 1
+feat.Text = "Instant Steal | Bypass SAB"
+feat.TextColor3 = Color3.fromRGB(255, 120, 180)
+feat.Font = Enum.Font.GothamBold
+feat.TextScaled = true
+feat.TextStrokeTransparency = 0.7
+feat.Parent = bg
+
+-- แถบโหลด (มีมุมโค้ง + เงา)
+local barBg = Instance.new("Frame")
+barBg.AnchorPoint = Vector2.new(0.5, 0.5)
+barBg.Position = UDim2.new(0.5, 0, 0.65, 0)
+barBg.Size = UDim2.new(0.5, 0, 0.03, 0)
+barBg.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+barBg.BackgroundTransparency = 0.2
+barBg.BorderSizePixel = 0
+barBg.Parent = bg
+
+local corner1 = Instance.new("UICorner", barBg)
+corner1.CornerRadius = UDim.new(0, 10)
+
+local fill = Instance.new("Frame")
+fill.Size = UDim2.new(0, 0, 1, 0)
+fill.BackgroundColor3 = Color3.fromRGB(170, 0, 255)
+fill.BorderSizePixel = 0
+fill.Parent = barBg
+
+local corner2 = Instance.new("UICorner", fill)
+corner2.CornerRadius = UDim.new(0, 10)
+
+-- เงา
+local shadow = Instance.new("ImageLabel", barBg)
+shadow.AnchorPoint = Vector2.new(0.5, 0.5)
+shadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+shadow.Size = UDim2.new(1.1, 0, 2, 0)
+shadow.Image = "rbxassetid://1316045217"
+shadow.ImageTransparency = 0.8
+shadow.BackgroundTransparency = 1
+
+-- เอฟเฟกต์โหลด
+for i = 0, 1, 0.01 do
+	fill:TweenSize(UDim2.new(i, 0, 1, 0), "Out", "Sine", 0.05, true)
+	wait(0.03)
+end
+
+-- เอฟเฟกต์ fade out ตอนจบ
+for i = 0, 1, 0.02 do
+	bg.BackgroundTransparency = i
+	title.TextTransparency = i
+	sub.TextTransparency = i
+	feat.TextTransparency = i
+	logo.ImageTransparency = i
+	barBg.BackgroundTransparency = i + 0.2
+	fill.BackgroundTransparency = i
+	wait(0.03)
+end
+
+gui:Destroy()
+
+-- ✅ หลังโหลดเสร็จ: รันสคริปต์จาก URL
+pcall(function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/kaisudlnw/Sss/refs/heads/main/Ssss"))()
+end)
